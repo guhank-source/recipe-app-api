@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  app:
+    build: 
+      context: .
+      args:
+        - DEV=true
+    image: recipe_app_api:latest
+    container_name: recipe_app_api_container
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
+#sudo docker-compose run --rm app sh -c 'flake8'
+#sudo docker-compose run --rm app sh -c 'django-admin startproject app .'
