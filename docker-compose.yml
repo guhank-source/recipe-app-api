@@ -38,3 +38,8 @@ volumes:
 #sudo docker-compose run --rm app sh -c 'django-admin startproject app .'
 #sudo docker-compose run --rm app sh -c "python manage.py test"
 #sudo docker-compose run --rm app sh -c "python manage.py startapp core"
+#sudo docker volume rm recipe-app-api_dev-db-data
+#sudo docker volume ls
+#sudo docker-compose run --rm app sh -c "python manage.py createsuperuser"
+#admin@yopmail.com
+#12345
