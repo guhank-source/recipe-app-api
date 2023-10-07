@@ -54,7 +54,7 @@ class PrivateRecipeAPITests(TestCase):
     """Test authenticate recipe API access"""
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user(email="recipetest002@yopmail.com", password="recipetest002")
+        self.user = create_user(email='recipetest002@yopmail.com', password='recipetest002')
         self.client.force_authenticate(self.user)
     def test_retrive_recipe(self):
         """Test retrieving a list of recipes"""
@@ -67,7 +67,7 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(res.data, serialier.data)
     def test_recipe_limited_to_user(self):
         """Test retrieving recipes for user"""
-        user2 = create_user(email="recipetest003@yopmail.com",password="recipetest003")
+        user2 = create_user(email='recipetest003@yopmail.com',password='recipetest003')
         create_recipe(user=user2)
         create_recipe(user=self.user)
         res = self.client.get(RECIPES_URL)
@@ -118,29 +118,30 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(recipe.link, original_link)
         self.assertEqual(recipe.user, self.user)
     def test_full_update(self):
-        """Test full update"""
+        """Test full update of recipe."""
         recipe = create_recipe(
             user=self.user,
-            title='Sample recipe',
-            link='https://example.com/recipe.pdf',
-            description='Sample description',
+            title='Sample recipe title',
+            link='https://exmaple.com/recipe.pdf',
+            description='Sample recipe description.',
         )
 
         payload = {
             'title': 'New recipe title',
             'link': 'https://example.com/new-recipe.pdf',
-            'description': 'New description',
+            'description': 'New recipe description',
             'time_minutes': 10,
             'price': Decimal('2.50'),
         }
-
         url = detail_url(recipe.id)
         res = self.client.put(url, payload)
+
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         recipe.refresh_from_db()
         for k, v in payload.items():
             self.assertEqual(getattr(recipe, k), v)
         self.assertEqual(recipe.user, self.user)
+        
     def test_update_user_return_error(self):
         """Test changing the recipe user results in an error"""
         new_user = create_user(email='recipetest004@yopmail.com', password='recipetest004')
