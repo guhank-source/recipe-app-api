@@ -173,7 +173,8 @@ class PrivateRecipeAPITests(TestCase):
         url = detail_url(recipe.id)
         res = self.client.delete(url)
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertTrue(Recipe.objects.filter(id=recipe.id).exists(), True)
+        self.assertTrue(Recipe.objects.filter(id=recipe.id).exists())
+
     def test_create_recipe_with_new_tags(self):
         """Test creating recipe with new tags"""
         payload = {
