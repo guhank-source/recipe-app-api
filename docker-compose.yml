@@ -11,6 +11,7 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
+      - dev-static-data:/vol/web
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
@@ -33,6 +34,7 @@ services:
       - POSTGRES_PASSWORD=changeme
 volumes:
   dev-db-data:
+  dev-static-data:
 
 #sudo docker-compose run --rm app sh -c 'flake8'
 #sudo docker-compose run --rm app sh -c 'django-admin startproject app .'
@@ -45,3 +47,4 @@ volumes:
 #12345
 #sudo docker-compose run --rm app sh -c "python manage.py makemigrations"
 #sudo docker-compose run --rm app sh -c "python manage.py migrate"
+#sudo docker-compose run --rm app sh -c "python manage.py collectstatic"
